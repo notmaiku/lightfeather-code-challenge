@@ -121,11 +121,9 @@ export class FComponent {
       resp[0] =
         resp[0] +
         `Make sure these fields are included 
-        1. firstName
-        2. lastName
-        3. email
-        4. phoneNumber
-        5. Supervisor`;
+         firstName
+         lastName
+         Supervisor`;
     }
   }
 }
