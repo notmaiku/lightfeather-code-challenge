@@ -7,14 +7,13 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, NgIf],
   template: `
-<div [formGroup]="formGroup" >
-    <input *ngIf="check" type="checkbox" checked="checked" class="checkbox" />
-    <label for="fieldName">{{labelName}}:</label>
-    <input id="fieldName" type="text" formControlName="{{fieldName}}">
-</div>
+    <div [formGroup]="formGroup">
+      <input *ngIf="check" type="checkbox" checked="checked" class="checkbox" />
+      <label for="fieldName">{{ labelName }}:</label>
+      <input id="fieldName" type="text" formControlName="{{ fieldName }}" />
+    </div>
   `,
-  styles: [
-  ]
+  styles: [],
 })
 export class IComponent {
   @Input() fieldName!: String;
