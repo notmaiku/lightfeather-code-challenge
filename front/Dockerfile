@@ -1,20 +1,19 @@
-# base image
+# pull official base image
 FROM node:18.15.0-alpine
 
 # set working directory
 WORKDIR /app
 
-# copy package.json and package-lock.json
-COPY package*.json ./
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-# install dependencies
+# install and cache app dependencies
+COPY package.json /app/package.json
 RUN npm install
+RUN npm install -g @angular/cli@latest
 
-# copy app files
-COPY . ./
+# add app
+COPY . /app
 
-# build Angular app
-RUN npm run build --prod
-
-# start Angular app
-CMD ["npm", "start"]
+# start app
+CMD ng serve --host 0.0.0.0

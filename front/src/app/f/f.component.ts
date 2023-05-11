@@ -16,7 +16,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [CommonModule, ReactiveFormsModule, IComponent],
   template: `
     <div *ngIf="data(); else error" class="p-20">
-      <form [formGroup]="superForm" class="grid grid-cols-2 gap-4 justify-items-center">
+      <form
+        [formGroup]="superForm"
+        class="grid grid-cols-2 gap-4 justify-items-center"
+      >
         <ng-container *ngFor="let input of inputs">
           <div class="mb-4j w-1/3">
             <app-i
@@ -33,7 +36,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
             class="select select-bordered w-full max-w-xs"
             formControlName="supervisor"
           >
-          <option disabled selected value="">Select one</option>
+            <option disabled selected value="">Select one</option>
             <ng-container *ngFor="let name of supervisors">
               <option>{{ name }}</option>
             </ng-container>
@@ -43,6 +46,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
           <button class="btn" type="submit" (click)="onSubmit()">Submit</button>
         </div>
       </form>
+      <div *ngIf="resp" class="text-center">
+        <p>{{ resp.message }}</p>
+        <p>{{ resp[0] }}</p>
+      </div>
     </div>
     <ng-template #error>
       <p>Spinner ...</p>
@@ -68,7 +75,6 @@ export class FComponent {
       phoneNumber: '',
       phoneCheck: '',
       supervisor: '',
-
     });
 
     effect(() => {
@@ -103,8 +109,23 @@ export class FComponent {
           return of(['Error submitting notification', error]);
         })
       );
-    resp.subscribe((data) => {
-      this.resp = data;
-    });
+    resp.subscribe((data) => this.handleResponse(data));
+  }
+
+  handleResponse(resp: any) {
+    this.resp = resp;
+    if ('message' in resp) {
+      this.superForm.reset();
+    }
+    if (resp.length) {
+      resp[0] =
+        resp[0] +
+        `Make sure these fields are included 
+        1. firstName
+        2. lastName
+        3. email
+        4. phoneNumber
+        5. Supervisor`;
+    }
   }
 }
