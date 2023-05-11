@@ -1,15 +1,20 @@
-FROM node::latest as build
+# base image
+FROM node:18.15.0-alpine
 
-WORKDIR /front
+# set working directory
+WORKDIR /app
 
-COPY package.json ./
+# copy package.json and package-lock.json
+COPY package*.json ./
 
-COPY package-lock.json ./
+# install dependencies
+RUN npm install
 
-RUN pnpm run install
-
-RUN ng build --configuration=production
-
+# copy app files
 COPY . ./
 
-CMD["pnpm", "start"]
+# build Angular app
+RUN npm run build --prod
+
+# start Angular app
+CMD ["npm", "start"]

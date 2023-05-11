@@ -3,3 +3,21 @@
 @tailwind utilities;
 
 
+/* tailwind css layer */
+
+
+
+
+@layer components {
+  .ipl{
+    @apply flex flex-col;
+  }
+
+  label{
+    @apply mb-2 text-sky-400 text-xl;
+  }
+
+  .ipl input{
+    @apply p-2 bg-slate-50;
+  }
+}

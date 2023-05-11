@@ -7,7 +7,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, NgIf],
   template: `
-    <div [formGroup]="formGroup">
+    <div [formGroup]="formGroup" class="ipl">
       <input *ngIf="check" type="checkbox" checked="checked" class="checkbox" />
       <label for="fieldName">{{ labelName }}:</label>
       <input id="fieldName" type="text" formControlName="{{ fieldName }}" />
