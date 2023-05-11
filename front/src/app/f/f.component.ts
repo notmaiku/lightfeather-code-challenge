@@ -91,7 +91,6 @@ export class FComponent {
   onSubmit() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Origin: 'http://example.com',
       'Access-Control-Request-Method': 'GET, POST, PUT',
       'Access-Control-Request-Headers': 'Content-Type',
     });
